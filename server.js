@@ -17,15 +17,21 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 app.use(express.json());
 
-// API Home Route (for testing)
+// ✅ API Home Route (Test if API is live)
 app.get("/", (req, res) => {
-  res.send("✅ API is running!");
+  res.send("✅ API is running successfully!");
 });
 
-// Query Route
+// ✅ Query Route (Handles Employee Queries)
 app.post("/query", (req, res) => {
+  console.log("🔍 Received API Request:", req.body); // Debugging log
+
+  if (!req.body || !req.body.query) {
+    return res.status(400).json({ error: "Missing query in request body" });
+  }
+
   const query = req.body.query.toLowerCase().trim();
-  console.log("🔍 Received API Request:", query);
+  console.log("📌 Extracted Query:", query);
 
   if (query.includes("employees in")) {
     const department = query.split("in ")[1]?.trim();
@@ -44,4 +50,5 @@ app.post("/query", (req, res) => {
   }
 });
 
+// ✅ Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
