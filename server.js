@@ -17,6 +17,12 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 app.use(express.json());
 
+// API Home Route (for testing)
+app.get("/", (req, res) => {
+  res.send("✅ API is running!");
+});
+
+// Query Route
 app.post("/query", (req, res) => {
   const query = req.body.query.toLowerCase().trim();
   console.log("🔍 Received API Request:", query);
@@ -34,7 +40,7 @@ app.post("/query", (req, res) => {
       res.json({ employees: rows.map(row => row.Name) });
     });
   } else {
-    res.json({ response: "Sorry, I didn't understand the query." });
+    res.status(404).json({ error: "Query not understood" });
   }
 });
 
