@@ -19,4 +19,3 @@ A simple **chat assistant** that interacts with an **SQLite database** and answe
 git clone https://github.com/yourusername/sqlite-chatbot.git
 cd sqlite-chatbot
 
-### **2️⃣ Install Dependencies**
